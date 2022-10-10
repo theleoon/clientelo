@@ -2,6 +2,7 @@ package br.com.alura.clientelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Pedido {
 
@@ -10,6 +11,7 @@ public class Pedido {
     private String cliente;
 
     private BigDecimal preco;
+    private BigDecimal totalPedido;
     private int quantidade;
 
     private LocalDate data;
@@ -20,10 +22,19 @@ public class Pedido {
         this.cliente = cliente;
         this.preco = preco;
         this.quantidade = quantidade;
+        this.totalPedido = this.preco.multiply(new BigDecimal(this.quantidade));
         this.data = data;
     }
 
-    public String getCategoria() {
+    public BigDecimal getTotalPedido() {
+		return totalPedido;
+	}
+
+	public void setTotalPedido(BigDecimal totalPedido) {
+		this.totalPedido = totalPedido;
+	}
+
+	public String getCategoria() {
         return categoria;
     }
 
