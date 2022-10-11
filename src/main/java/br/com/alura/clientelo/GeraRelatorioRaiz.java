@@ -3,42 +3,33 @@ package br.com.alura.clientelo;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+//Feito em sala de aula
+public class GeraRelatorioRaiz {
 
-public class GeraRelatorio {
+	private static final Logger logger = LoggerFactory.getLogger(GeraRelatorioRaiz.class);
 
-	private static final Logger logger = LoggerFactory.getLogger(GeraRelatorio.class);
+	public static <R> void main(String[] args) throws IOException, URISyntaxException {
 
-	public static void main(String[] args) throws IOException, URISyntaxException {
-
-		imprimeRelatorioCompleto();
-
-	}
-	
-	public static void imprimeRelatorioCompleto(){
-		
-		List<Pedido> pedidos = new ArrayList<Pedido>();
-		Set<String> categorias = new HashSet<>();
-		pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
+		List<Pedido> pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
 
 		Integer totalDePedidosRealizados = pedidos.size();
-		
+
 		BigDecimal totalDeVendas = pedidos.stream()
-								.map(pedido -> pedido.getTotalPedido())
-								.reduce(BigDecimal.ZERO, BigDecimal::add);
-		
+				.map(pedido -> pedido.getTotalPedido())
+				.reduce(BigDecimal.ZERO,BigDecimal::add);
+
 		BigDecimal totalDeProdutosVendidos = pedidos.stream()
-											.map(pedido -> new BigDecimal(pedido.getQuantidade()))
-											.reduce(BigDecimal.ZERO, BigDecimal::add);
-		
-		pedidos.stream().forEach(pedido -> categorias.add(pedido.getCategoria()));
+				.map(pedido -> new BigDecimal(pedido.getQuantidade()))
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		Set<String> categorias = pedidos.stream().map(pedido -> pedido.getCategoria()).collect(Collectors.toSet());
 
 		pedidos.sort(Comparator.comparing(Pedido::getTotalPedido));
 		Pedido pedidoMaisBarato = pedidos.get(0);
@@ -55,35 +46,54 @@ public class GeraRelatorio {
 
 		logger.info("\n\n ##### PRODUTO MAIS VENDIDO ##### \n");
 		pedidos.sort(Comparator.comparing(Pedido::getQuantidade).reversed());
-		
-		pedidos.stream().forEach(pedido -> {
+
+		pedidos.forEach(pedido -> {
 			logger.info("PRODUTO: {}", pedido.getProduto());
 			logger.info("QUANTIDADE: {} \n", pedido.getQuantidade());
 		});
-		
+
 		logger.info("\n\n ##### RELATÓRIO DE VENDAS POR CATEGORIA ##### \n");
 		pedidos.sort(Comparator.comparing(Pedido::getCategoria));
-		
 		for (String categoria : categorias) {
 			
 			BigDecimal montante = BigDecimal.ZERO;
 			BigDecimal quantidade = BigDecimal.ZERO;
 			
-			montante = pedidos.stream()
-								.filter(p -> p.getCategoria().equals(categoria))
-								.map(p -> p.getTotalPedido())
-								.reduce(BigDecimal.ZERO, BigDecimal::add);
-			
-			quantidade = pedidos.stream()
-								.filter(p -> p.getCategoria().equals(categoria))
-								.map(p -> new BigDecimal(p.getQuantidade()))
-								.reduce(BigDecimal.ZERO, BigDecimal::add);
-			
+			for (Pedido pedido : pedidos) {
+				if (pedido == null) break;
+				
+				if (pedido.getCategoria().equals(categoria)) {
+					montante = montante.add(pedido.getTotalPedido());
+					quantidade = quantidade.add(new BigDecimal(pedido.getQuantidade()));
+				}
+			}
+
 			logger.info("CATEGORIA: {}", categoria);
 			logger.info("QUANTIDADE VENDIDA: {}", quantidade);
 			logger.info("QUANTIDADE MONTANTE: {} \n", montante);
-		};
+		}
 		
+		categorias.stream().forEach(categoria -> {
+			
+			List<Pedido> pedidosDaCategoria = pedidos.stream()
+					.filter(pedido -> pedido.getCategoria().equals(categoria)).collect(Collectors.toList());
+
+			BigDecimal montante = pedidosDaCategoria.stream()
+					.map(pedido -> pedido.getTotalPedido())
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+			BigDecimal quantidade = pedidosDaCategoria.stream()
+					.map(p -> new BigDecimal(p.getQuantidade()))
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+			logger.info("CATEGORIA: {}", categoria);
+			logger.info("QUANTIDADE VENDIDA: {}", quantidade);
+			logger.info("QUANTIDADE MONTANTE: {} \n", montante);
+			
+		});
+		
+
+
+
 	}
-	 
 }

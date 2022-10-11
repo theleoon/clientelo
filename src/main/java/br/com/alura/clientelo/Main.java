@@ -11,6 +11,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
