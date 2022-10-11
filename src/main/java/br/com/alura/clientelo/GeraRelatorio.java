@@ -31,18 +31,28 @@ public class GeraRelatorio {
 		Pedido pedidoMaisBarato = null;
 		Pedido pedidoMaisCaro = null;
 
-		for (Pedido pedido : pedidos) {
-			if (pedido == null)
-				break;
-			totalDeVendas = totalDeVendas.add(pedido.getTotalPedido());
-			totalDeProdutosVendidos = totalDeProdutosVendidos.add(new BigDecimal(pedido.getQuantidade()));
-		}
+//		for (Pedido pedido : pedidos) {
+//			if (pedido == null)
+//				break;
+//			totalDeVendas = totalDeVendas.add(pedido.getTotalPedido());
+//			totalDeProdutosVendidos = totalDeProdutosVendidos.add(new BigDecimal(pedido.getQuantidade()));
+//		}
+		
+		totalDeVendas = pedidos.stream()
+								.map(pedido -> pedido.getTotalPedido())
+								.reduce(BigDecimal.ZERO, BigDecimal::add);
+		
+		totalDeProdutosVendidos = pedidos.stream()
+											.map(pedido -> new BigDecimal(pedido.getQuantidade()))
+											.reduce(BigDecimal.ZERO, BigDecimal::add);
 
-		for (Pedido pedido : pedidos) {
-			if (pedido == null) 
-				break;
-			categorias.add(pedido.getCategoria());
-		}
+//		for (Pedido pedido : pedidos) {
+//			if (pedido == null) 
+//				break;
+//			categorias.add(pedido.getCategoria());
+//		}
+		
+		pedidos.stream().forEach(pedido -> categorias.add(pedido.getCategoria()));
 
 		pedidos.sort(Comparator.comparing(Pedido::getTotalPedido));
 		pedidoMaisBarato = pedidos.get(0);
@@ -59,31 +69,56 @@ public class GeraRelatorio {
 
 		logger.info("\n\n ##### PRODUTO MAIS VENDIDO ##### \n");
 		pedidos.sort(Comparator.comparing(Pedido::getQuantidade).reversed());
-		for (Pedido pedido : pedidos) {
+//		for (Pedido pedido : pedidos) {
+//			logger.info("PRODUTO: {}", pedido.getProduto());
+//			logger.info("QUANTIDADE: {} \n", pedido.getQuantidade());
+//		}
+		
+		pedidos.stream().forEach(pedido -> {
 			logger.info("PRODUTO: {}", pedido.getProduto());
 			logger.info("QUANTIDADE: {} \n", pedido.getQuantidade());
-		}
+		});
 		
 		logger.info("\n\n ##### RELATÓRIO DE VENDAS POR CATEGORIA ##### \n");
 		pedidos.sort(Comparator.comparing(Pedido::getCategoria));
+//		for (String categoria : categorias) {
+//			
+//			BigDecimal montante = BigDecimal.ZERO;
+//			BigDecimal quantidade = BigDecimal.ZERO;
+//			
+//			for (Pedido pedido : pedidos) {
+//				if (pedido == null) break;
+//				
+//				if (pedido.getCategoria().equals(categoria)) {
+//					montante = montante.add(pedido.getTotalPedido());
+//					quantidade = quantidade.add(new BigDecimal(pedido.getQuantidade()));
+//				}
+//			}
+//
+//			logger.info("CATEGORIA: {}", categoria);
+//			logger.info("QUANTIDADE VENDIDA: {}", quantidade);
+//			logger.info("QUANTIDADE MONTANTE: {} \n", montante);
+//		}
+		
 		for (String categoria : categorias) {
 			
 			BigDecimal montante = BigDecimal.ZERO;
 			BigDecimal quantidade = BigDecimal.ZERO;
 			
-			for (Pedido pedido : pedidos) {
-				if (pedido == null) break;
-				
-				if (pedido.getCategoria().equals(categoria)) {
-					montante = montante.add(pedido.getTotalPedido());
-					quantidade = quantidade.add(new BigDecimal(pedido.getQuantidade()));
-				}
-			}
-
+			montante = pedidos.stream()
+								.filter(p -> p.getCategoria().equals(categoria))
+								.map(p -> p.getTotalPedido())
+								.reduce(BigDecimal.ZERO, BigDecimal::add);
+			
+			quantidade = pedidos.stream()
+								.filter(p -> p.getCategoria().equals(categoria))
+								.map(p -> new BigDecimal(p.getQuantidade()))
+								.reduce(BigDecimal.ZERO, BigDecimal::add);
+			
 			logger.info("CATEGORIA: {}", categoria);
 			logger.info("QUANTIDADE VENDIDA: {}", quantidade);
 			logger.info("QUANTIDADE MONTANTE: {} \n", montante);
-		}
+		};
 
 	}
 }
