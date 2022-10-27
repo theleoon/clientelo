@@ -5,44 +5,39 @@ import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.alura.clientelo.service.CategoriaService;
+import br.com.alura.clientelo.service.PedidoService;
+
 public class GeraRelatorio {
 
 	private static final Logger logger = LoggerFactory.getLogger(GeraRelatorio.class);
+	
 
 	public static void main(String[] args) throws IOException, URISyntaxException {
 
-		imprimeRelatorioCompleto();
-
-	}
-	
-	public static void imprimeRelatorioCompleto(){
-		
 		List<Pedido> pedidos = new ArrayList<Pedido>();
-		Set<String> categorias = new HashSet<>();
+		
 		pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
+		PedidoService pedidoService = new PedidoService();
+		CategoriaService categoriaService = new CategoriaService();
+		
+		Set<String> categorias = categoriaService.getCategorias(Optional.of(pedidos));
 
-		Integer totalDePedidosRealizados = pedidos.size();
+		Optional<Integer> totalDePedidosRealizados = pedidoService.getQuantidadeDePedidos(Optional.of(pedidos));
 		
-		BigDecimal totalDeVendas = pedidos.stream()
-								.map(pedido -> pedido.getTotalPedido())
-								.reduce(BigDecimal.ZERO, BigDecimal::add);
-		
-		BigDecimal totalDeProdutosVendidos = pedidos.stream()
-											.map(pedido -> new BigDecimal(pedido.getQuantidade()))
-											.reduce(BigDecimal.ZERO, BigDecimal::add);
-		
-		pedidos.stream().forEach(pedido -> categorias.add(pedido.getCategoria()));
+		BigDecimal totalDeVendas = pedidoService.getTotalDeVendas(Optional.of(pedidos));
+	
+		BigDecimal totalDeProdutosVendidos = pedidoService.getTotalDeProdutosVendidos(Optional.of(pedidos));
 
-		pedidos.sort(Comparator.comparing(Pedido::getTotalPedido));
-		Pedido pedidoMaisBarato = pedidos.get(0);
-		Pedido pedidoMaisCaro = pedidos.get(pedidos.size() - 1);
+		Optional<Pedido> pedidoMaisBarato = pedidoService.getPedidoMaisBarato(Optional.of(pedidos));
+		Optional<Pedido> pedidoMaisCaro = pedidoService.getPedidoMaisCaro(Optional.of(pedidos));
 
 		logger.info("\n\n ##### RELATÓRIO DE VALORES TOTAIS ##### \n");
 		logger.info("TOTAL DE PEDIDOS: {}", totalDePedidosRealizados);
@@ -85,5 +80,7 @@ public class GeraRelatorio {
 		};
 		
 	}
+
+	
 	 
 }
