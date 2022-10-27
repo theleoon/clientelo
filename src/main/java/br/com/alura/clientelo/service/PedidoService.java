@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.alura.clientelo.Pedido;
+import br.com.alura.clientelo.modelo.Pedido;
 
 public class PedidoService {
 	
@@ -51,6 +51,15 @@ public class PedidoService {
 		}
 		
 		return pedido;
+	}
+
+	public BigDecimal getTotalDePedidosRealizados(Optional<List<Pedido>> pedidos) {
+		
+		if (pedidos.isPresent()) {
+			return new BigDecimal(pedidos.get().size());
+		}
+
+		return BigDecimal.ZERO;
 	}
 
 }

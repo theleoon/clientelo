@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.alura.clientelo.modelo.Pedido;
+
 public class ProcessadorDeCsv {
 
     public static List<Pedido> processaArquivo(String nomeDoArquivo) {

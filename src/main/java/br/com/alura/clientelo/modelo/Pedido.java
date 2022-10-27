@@ -1,8 +1,7 @@
-package br.com.alura.clientelo;
+package br.com.alura.clientelo.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Pedido {
 
@@ -68,6 +67,22 @@ public class Pedido {
                 ", quantidade=" + quantidade +
                 ", data=" + data +
                 '}';
+    }
+    
+    public String toTotalEProduto() {
+        return "R$ " + totalPedido + " (" + produto + ")";
+    }
+    
+    public boolean isMaisBaratoQue(Pedido outroPedido) {
+    	return this.totalPedido.compareTo(outroPedido.totalPedido) < 1;
+    }
+
+    public boolean isMaisCaroQue(Pedido outroPedido) {
+    	return this.totalPedido.compareTo(outroPedido.totalPedido) == 1;
+    }
+
+    public BigDecimal getValorTotal() {
+    	return totalPedido;
     }
 
 }
