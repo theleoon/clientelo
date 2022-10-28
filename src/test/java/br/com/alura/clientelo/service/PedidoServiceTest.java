@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.alura.clientelo.modelo.Pedido;
+import br.com.alura.clientelo.model.Pedido;
 
 public class PedidoServiceTest {
 

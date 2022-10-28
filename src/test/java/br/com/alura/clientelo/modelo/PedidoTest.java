@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import br.com.alura.clientelo.model.Pedido;
+
 public class PedidoTest {
 	
 	static Pedido pedidoBarato;

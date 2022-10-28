@@ -1,7 +1,12 @@
-package br.com.alura.clientelo.modelo;
+package br.com.alura.clientelo.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 public class Pedido {
 
@@ -13,6 +18,8 @@ public class Pedido {
     private BigDecimal totalPedido;
     private int quantidade;
 
+    @JsonDeserialize(using = LocalDateDeserializer.class)  
+    @JsonSerialize(using = LocalDateSerializer.class) 
     private LocalDate data;
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
@@ -24,8 +31,9 @@ public class Pedido {
         this.totalPedido = this.preco.multiply(new BigDecimal(this.quantidade));
         this.data = data;
     }
+    
 
-    public BigDecimal getTotalPedido() {
+	public BigDecimal getTotalPedido() {
 		return totalPedido;
 	}
 
@@ -80,9 +88,8 @@ public class Pedido {
     public boolean isMaisCaroQue(Pedido outroPedido) {
     	return this.totalPedido.compareTo(outroPedido.totalPedido) == 1;
     }
-
+    
     public BigDecimal getValorTotal() {
-    	return totalPedido;
+    	return this.preco.multiply(new BigDecimal(quantidade));
     }
-
 }

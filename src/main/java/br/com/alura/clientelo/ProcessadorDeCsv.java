@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import br.com.alura.clientelo.modelo.Pedido;
+import br.com.alura.clientelo.model.Pedido;
 
 public class ProcessadorDeCsv {
 

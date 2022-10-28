@@ -1,0 +1,42 @@
+[
+  {
+    "categoria": "INFORMÁTICA",
+    "produto": "Notebook Samsung",
+    "preco": 3523,
+    "quantidade": 1,
+    "data": "2022-01-01",
+    "cliente": "ANA"
+  },
+  {
+    "categoria": "MÓVEIS",
+    "produto": "Sofá 3 lugares",
+    "preco": 2500,
+    "quantidade": 1,
+    "data": "2022-01-01",
+    "cliente": "ANA"
+  },
+  {
+    "categoria": "LIVROS",
+    "produto": "Clean Architecture",
+    "preco": 102.9,
+    "quantidade": 2,
+    "data": "2022-01-01",
+    "cliente": "ANA"
+  },
+  {
+    "categoria": "MÓVEIS",
+    "produto": "Mesa de jantar 6 lugares",
+    "preco": 3678.98,
+    "quantidade": 1,
+    "data": "2022-01-01",
+    "cliente": "ELI"
+  },
+  {
+    "categoria": "CELULARES",
+    "produto": "iPhone 13 Pro",
+    "preco": 9176,
+    "quantidade": 6,
+    "data": "2022-01-01",
+    "cliente": "ANA"
+  }
+]
