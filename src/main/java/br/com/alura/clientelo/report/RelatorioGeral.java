@@ -15,9 +15,9 @@ import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.service.CategoriaService;
 import br.com.alura.clientelo.service.PedidoService;
 
-public class RelatorioPedidoConsolidado implements Report {
+public class RelatorioGeral implements Report {
 	
-	private static final Logger logger = LoggerFactory.getLogger(RelatorioPedidoConsolidado.class);
+	private static final Logger logger = LoggerFactory.getLogger(RelatorioGeral.class);
 	
 	private BigDecimal totalDePedidosRealizados;
 	private BigDecimal totalDeVendas;
@@ -28,7 +28,7 @@ public class RelatorioPedidoConsolidado implements Report {
 	
 	private Set<String> categorias;
 	
-	public RelatorioPedidoConsolidado(Optional<List<Pedido>> pedidos) {
+	public RelatorioGeral(Optional<List<Pedido>> pedidos) {
 		
 		PedidoService pedidoService = new PedidoService();
 		CategoriaService categoriaService = new CategoriaService();
@@ -40,22 +40,28 @@ public class RelatorioPedidoConsolidado implements Report {
 		this.totalDeCategorias = new BigDecimal(categorias.size());
 		this.pedidoMaisCaro = pedidoService.getPedidoMaisCaro(pedidos).orElse(null);
 		this.pedidoMaisBarato = pedidoService.getPedidoMaisBarato(pedidos).orElse(null);
-		
 	}
 
 	@Override
 	public void export() {
-		logger.info("\n\n ##### RELATÓRIO DE VALORES TOTAIS ##### \n");
-		logger.info("TOTAL DE PEDIDOS: {}", getTotalDePedidosRealizados());
-		logger.info("TOTAL DE PRODUTOS VENDIDOS: {}", getTotalDeProdutosVendidos());
-		logger.info("TOTAL DE CATEGORIAS: {}", getTotalDeCategorias());
-		logger.info("MONTANTE DE VENDAS: {}", getTotalDeVendas());
-		logger.info("PEDIDO MAIS BARATO: {}", getPedidoMaisBarato().toTotalEProduto());
-		logger.info("PEDIDO MAIS CARO: {}", getPedidoMaisCaro().toTotalEProduto());
-		logger.info("CATEGORIAS: {}", getCategorias());
-		
-	}
+			
+            StringBuilder response = new StringBuilder();
+            response.append("##### RELATÓRIO DE VALORES TOTAIS ##### \n");
+            response.append("\n");
 
+            response.append(String.format("TOTAL DE PEDIDOS REALIZADOS: %s\n", getTotalDePedidosRealizados()));
+            response.append(String.format("TOTAL DE PRODUTOS VENDIDOS: %s\n", getTotalDeProdutosVendidos()));
+            response.append(String.format("TOTAL DE CATEGORIAS: %s\n", getTotalDeCategorias()));
+            response.append(String.format("MONTANTE DE VENDAS: %s\n", getTotalDeVendas()));
+//            response.append(String.format("PEDIDO MAIS BARATO: %s (%s)\n", getPedidoMaisBarato().toTotalEProduto()));
+//            response.append(String.format("PEDIDO MAIS CARO: %s (%s)\n\n", getPedidoMaisCaro().toTotalEProduto()));
+                           
+            response.append("### FIM DO RELATÓRIO ###");
+            response.append("\n");
+            
+            logger.info(response.toString());
+	}
+	
 	public String getTotalDePedidosRealizados() {
 		return NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(totalDePedidosRealizados.setScale(2, RoundingMode.HALF_DOWN));
 	}

@@ -8,7 +8,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.alura.clientelo.ProcessadorDeCsv;
 import br.com.alura.clientelo.model.Pedido;
 
 public class GeraRelatorio {
@@ -19,7 +18,6 @@ public class GeraRelatorio {
 
 		List<Pedido> pedidos = new ArrayList<Pedido>();
 		
-		pedidos = ProcessadorDeCsv.processaArquivo("pedidos.csv");
 		
 		
 	

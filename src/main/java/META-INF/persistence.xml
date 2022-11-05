@@ -1,0 +1,44 @@
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	
+	<persistence-unit name="vendas">
+	
+		<!-- Implementacao do JPA2.1, no nosso caso Hibernate -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<!-- Aqui são listadas todas as entidades -->
+		<class>br.com.alura.clientelo.model.Pedido</class>
+		<class>br.com.alura.clientelo.model.Cliente</class>
+		<class>br.com.alura.clientelo.model.Categoria</class>
+		<class>br.com.alura.clientelo.model.Produto</class>
+		
+		<properties>
+			<!-- Propriedades JDBC -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/clientelo" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="alura123" />
+			
+			<!-- Configuracoes especificas do Hibernate -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			
+			<!-- poderia ser: update, create, create-drop, none -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			
+			<!-- Para pool de conexao nativo do Hibernate, NAO USAR EM PROD -->
+			<property name="hibernate.c3p0.min_size" value="5" />
+			<property name="hibernate.c3p0.max_size" value="15" />
+			<property name="hibernate.c3p0.timeout" value="180" />
+			<property name="hibernate.c3p0.idle_test_period" value="100" />
+			
+		</properties>
+		
+	</persistence-unit>
+
+	
+</persistence>
