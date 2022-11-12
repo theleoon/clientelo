@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produtos")
 public class Produto {
 
 	@Id
@@ -31,9 +32,11 @@ public class Produto {
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Categoria categoria;
 	
+	/** 
+	 * @deprecated Hibernate only */
 	public Produto() {}
 	
 	public Produto(String nome, BigDecimal preco, String descricao, Integer quantidadeEstoque, Categoria categoria) {

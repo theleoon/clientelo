@@ -26,6 +26,10 @@ public class TestePersistenciaCategoria {
 		categoriaDao.cadastra(categoriaAutomotiva);
 		
 		logger.info("Categoria cadastrada com sucesso!");
+		
+		// BUSCAR
+		Categoria nome = categoriaDao.buscaPorId(categoriaCelular.getId());
+		
 
 	}
 

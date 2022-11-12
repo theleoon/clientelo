@@ -3,20 +3,13 @@ package br.com.alura.clientelo.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import br.com.alura.clientelo.model.Categoria;
+import br.com.alura.clientelo.util.JPAUtil;
 
 public class CategoriaDao implements Dao<Categoria>{
 	
-	private EntityManagerFactory factory;
-	private EntityManager em;
-	
-	public CategoriaDao() {
-		factory = Persistence.createEntityManagerFactory("vendas");
-		em = factory.createEntityManager();
-	}
+	private EntityManager em = JPAUtil.getEntityManager();
 
 	@Override
 	public void cadastra(Categoria t) {
@@ -34,9 +27,7 @@ public class CategoriaDao implements Dao<Categoria>{
 
 	@Override
 	public List<Categoria> listaTodos() {
-		
 		return em.createQuery("select f from Categoria f", Categoria.class).getResultList();
-		
 	}
 
 	@Override

@@ -6,25 +6,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "item_pedido")
+@Table(name = "itens_pedido")
 public class ItemPedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
     
-	@OneToOne
+	@ManyToOne(fetch = FetchType.LAZY)
     private Produto produto;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
     private Pedido pedido;
 
 	@Column(name = "preco_unitario")
@@ -40,6 +40,8 @@ public class ItemPedido {
 	@Column(name = "tipo_desconto")
 	private TipoDescontoProdutoEnum tipoDesconto;
 	
+	/** 
+	 * @deprecated Hibernate only */
 	public ItemPedido() {}
 	
 	public ItemPedido(Produto produto, Pedido pedido, int quantidade, BigDecimal desconto,

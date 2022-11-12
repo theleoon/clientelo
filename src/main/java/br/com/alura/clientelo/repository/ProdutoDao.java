@@ -5,27 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.alura.clientelo.model.Categoria;
 import br.com.alura.clientelo.model.Produto;
+import br.com.alura.clientelo.util.JPAUtil;
 
 @SuppressWarnings("unchecked")
 public class ProdutoDao implements Dao<Produto>{
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProdutoDao.class);
 
-	private EntityManagerFactory factory;
-	private EntityManager em;
-	
-	public ProdutoDao() {
-		factory = Persistence.createEntityManagerFactory("vendas");
-		em = factory.createEntityManager();
-	}
+	private EntityManager em = JPAUtil.getEntityManager();
 
 	@Override
 	public Produto buscaPorId(Long id) {
@@ -68,7 +61,9 @@ public class ProdutoDao implements Dao<Produto>{
 		
 		Map<Produto, Categoria> maisCaroPorCategoria = new HashMap<>();
 		
-		List<Object[]> retorno = em.createQuery("select p, c from Produto p join Categoria c on p.categoria = c group by p.id order by p.preco desc").getResultList();
+		String jpql = "select p, c from Produto p join Categoria c on p.categoria = c group by p.id order by p.preco desc";
+		
+		List<Object[]> retorno = em.createQuery(jpql).getResultList();
 		
 		for (Object[] object : retorno) {
 			Produto produto = (Produto) object[0];

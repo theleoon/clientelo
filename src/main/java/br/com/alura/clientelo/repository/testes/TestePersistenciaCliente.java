@@ -14,8 +14,14 @@ public class TestePersistenciaCliente {
 	public static void main(String[] args) {
 		
 		ClienteDao clienteDao = new ClienteDao();
-		Cliente clienteJoao = new Cliente("João da Silva", "455.666.444-57", "1155556666", new Endereco("Rua Sem Nome", "22", "Perto da Padoca", "Planalto", "São Bernardo", "São Paulo"));
+		Cliente clienteJoao = new Cliente("Pedro da Silva", "455.666.444-57", "1155556666", new Endereco("Rua Sem Nome", "22", "Perto da Padoca", "Planalto", "São Bernardo", "São Paulo"));
 		clienteDao.cadastra(clienteJoao);
+		
+		Cliente clienteHeloisa = new Cliente("Heloisa Ferreira", "455.666.444-88", "1155556666", new Endereco("Rua Sem Nome", "22", "Perto da Padoca", "Planalto", "São Bernardo", "São Paulo"));
+		clienteDao.cadastra(clienteHeloisa);
+		
+		Cliente clienteHenrique = new Cliente("Henrique Junior", "455.854.444-57", "1155556666", new Endereco("Rua Sem Nome", "22", "Perto da Padoca", "Planalto", "São Bernardo", "São Paulo"));
+		clienteDao.cadastra(clienteHenrique);
 		
 		logger.info("Cliente cadastrado com sucesso!");
 

@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.alura.clientelo.model.Categoria;
 import br.com.alura.clientelo.model.Produto;
 import br.com.alura.clientelo.repository.CategoriaDao;
 import br.com.alura.clientelo.repository.ProdutoDao;

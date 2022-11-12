@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,17 +20,17 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "pedido")
+@Table(name = "pedidos")
 public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ItemPedido> itens = new ArrayList<>();
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 	
 	@Column(name = "desconto")
@@ -45,6 +46,9 @@ public class Pedido {
     @Column(name = "data")
     private LocalDate data;
     
+    /** 
+	 * @deprecated Hibernate only */
+    public Pedido() {}
  
     public Pedido(List<ItemPedido> itens, Cliente cliente, BigDecimal desconto,
 			TipoDescontoPedidoEnum tipoDesconto) {

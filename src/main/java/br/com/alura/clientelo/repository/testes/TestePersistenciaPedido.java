@@ -19,24 +19,36 @@ public class TestePersistenciaPedido {
 	
 	public static void main(String[] args) {
 		
-		Categoria novaCategoria = new Categoria("Celular");
-		new CategoriaDao().cadastra(novaCategoria);
-		
 		ProdutoDao produtoDao = new ProdutoDao();
-		Produto novoProdutoSamsung = new Produto("Samsung S12", new BigDecimal("2000"), "Celular Samsung", 2, novaCategoria);
-		Produto novoProdutoApple = new Produto("Apple iPhone 12", new BigDecimal("8000"), "Celular Apple", 2, novaCategoria);
-		produtoDao.cadastra(novoProdutoApple);
-		produtoDao.cadastra(novoProdutoSamsung);
+		Produto novoProduto1 = produtoDao.buscaPorId(1l);
+		Produto novoProduto2 = produtoDao.buscaPorId(2l);
 		
 		ClienteDao clienteDao = new ClienteDao();
-		Cliente clienteJoao = new Cliente("João da Silva", "455.666.444-57", "1155556666", new Endereco("Rua Sem Nome", "22", "Perto da Padoca", "Planalto", "São Bernardo", "São Paulo"));
-		clienteDao.cadastra(clienteJoao);
+		Cliente clienteJoao =  clienteDao.buscaPorId(1l);
+		Cliente cliente2 =  clienteDao.buscaPorId(2l);
+		Cliente cliente3 =  clienteDao.buscaPorId(3l);
 		
 		PedidoDao pedidoDao = new PedidoDao();
 		Pedido novoPedidoJoao = new Pedido(null, clienteJoao, BigDecimal.ZERO, TipoDescontoPedidoEnum.NENHUM);
-		ItemPedido celularApple = new ItemPedido(novoProdutoApple, novoPedidoJoao, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
-		novoPedidoJoao.adicionaItem(celularApple);
+		ItemPedido itemPedido1 = new ItemPedido(novoProduto1, novoPedidoJoao, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
+		ItemPedido itemPedido2 = new ItemPedido(novoProduto2, novoPedidoJoao, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
+		novoPedidoJoao.adicionaItem(itemPedido1);
+		novoPedidoJoao.adicionaItem(itemPedido2);
 		pedidoDao.cadastra(novoPedidoJoao);
+		
+		Pedido novoPedido2 = new Pedido(null, cliente2, BigDecimal.TEN, TipoDescontoPedidoEnum.FIDELIDADE);
+		ItemPedido itemPedido3 = new ItemPedido(novoProduto1, novoPedido2, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
+		ItemPedido itemPedido4 = new ItemPedido(novoProduto2, novoPedido2, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
+		novoPedido2.adicionaItem(itemPedido3);
+		novoPedido2.adicionaItem(itemPedido4);
+		pedidoDao.cadastra(novoPedido2);
+		
+		Pedido novoPedido3 = new Pedido(null, cliente3, BigDecimal.ZERO, TipoDescontoPedidoEnum.NENHUM);
+		ItemPedido itemPedido5 = new ItemPedido(novoProduto1, novoPedido3, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
+		ItemPedido itemPedido6 = new ItemPedido(novoProduto2, novoPedido3, 2, BigDecimal.valueOf(200), TipoDescontoProdutoEnum.PROMOCAO);
+		novoPedido3.adicionaItem(itemPedido5);
+		novoPedido3.adicionaItem(itemPedido6);
+		pedidoDao.cadastra(novoPedido3);
 		
 	}
 

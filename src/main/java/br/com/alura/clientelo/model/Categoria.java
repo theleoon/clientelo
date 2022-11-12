@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "categoria")
+@Table(name = "categorias")
 public class Categoria {
 
 	@Id
@@ -23,6 +23,8 @@ public class Categoria {
 	@Column(name = "status", columnDefinition = "boolean default true")
 	private Boolean ativa;
 	
+	/** 
+	 * @deprecated Hibernate only */
 	public Categoria() {}
 	
 	public Categoria(String nome) {
