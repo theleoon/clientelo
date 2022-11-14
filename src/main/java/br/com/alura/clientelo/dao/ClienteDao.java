@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.repository;
+package br.com.alura.clientelo.dao;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

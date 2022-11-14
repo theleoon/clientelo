@@ -1,10 +1,10 @@
-package br.com.alura.clientelo.repository.testes;
+package br.com.alura.clientelo.dao.testes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.alura.clientelo.dao.CategoriaDao;
 import br.com.alura.clientelo.model.Categoria;
-import br.com.alura.clientelo.repository.CategoriaDao;
 
 public class TestePersistenciaCategoria {
 	

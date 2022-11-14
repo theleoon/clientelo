@@ -1,7 +1,9 @@
 package br.com.alura.clientelo.model;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Endereco {
 	
 	@Column(name = "rua", nullable = false, length = 100)

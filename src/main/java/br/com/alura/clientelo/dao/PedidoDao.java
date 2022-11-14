@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.repository;
+package br.com.alura.clientelo.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +42,7 @@ public class PedidoDao implements Dao<Pedido>{
 
 	@Override
 	public List<Pedido> listaTodos() {
-		return em.createQuery("select p from Pedido p JOIN FETCH p.cliente", Pedido.class).getResultList();
+		return em.createQuery("select p from Pedido p", Pedido.class).getResultList();
 	}
 
 	public Map<Produto, Long> listaProdutosMaisVendidos() {

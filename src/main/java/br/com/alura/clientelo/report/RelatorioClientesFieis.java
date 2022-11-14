@@ -5,7 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.alura.clientelo.repository.ClienteDao;
+import br.com.alura.clientelo.dao.ClienteDao;
 import br.com.alura.clientelo.vo.RelatorioClientePedidosVo;
 
 public class RelatorioClientesFieis implements Report {

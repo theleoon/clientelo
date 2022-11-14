@@ -1,4 +1,4 @@
-package br.com.alura.clientelo.repository;
+package br.com.alura.clientelo.dao;
 
 import java.util.List;
 

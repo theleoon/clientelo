@@ -5,8 +5,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.alura.clientelo.dao.PedidoDao;
 import br.com.alura.clientelo.model.Produto;
-import br.com.alura.clientelo.repository.PedidoDao;
 
 public class RelatorioProdutosMaisVendidos implements Report {
 	

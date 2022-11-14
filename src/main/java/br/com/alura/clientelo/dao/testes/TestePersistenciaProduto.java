@@ -1,13 +1,13 @@
-package br.com.alura.clientelo.repository.testes;
+package br.com.alura.clientelo.dao.testes;
 
 import java.math.BigDecimal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.alura.clientelo.dao.CategoriaDao;
+import br.com.alura.clientelo.dao.ProdutoDao;
 import br.com.alura.clientelo.model.Produto;
-import br.com.alura.clientelo.repository.CategoriaDao;
-import br.com.alura.clientelo.repository.ProdutoDao;
 
 public class TestePersistenciaProduto {
 	

@@ -1,11 +1,11 @@
-package br.com.alura.clientelo.repository.testes;
+package br.com.alura.clientelo.dao.testes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.alura.clientelo.dao.ClienteDao;
 import br.com.alura.clientelo.model.Cliente;
 import br.com.alura.clientelo.model.Endereco;
-import br.com.alura.clientelo.repository.ClienteDao;
 
 public class TestePersistenciaCliente {
 	

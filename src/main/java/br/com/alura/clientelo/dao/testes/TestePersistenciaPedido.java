@@ -1,7 +1,11 @@
-package br.com.alura.clientelo.repository.testes;
+package br.com.alura.clientelo.dao.testes;
 
 import java.math.BigDecimal;
 
+import br.com.alura.clientelo.dao.CategoriaDao;
+import br.com.alura.clientelo.dao.ClienteDao;
+import br.com.alura.clientelo.dao.PedidoDao;
+import br.com.alura.clientelo.dao.ProdutoDao;
 import br.com.alura.clientelo.model.Categoria;
 import br.com.alura.clientelo.model.Cliente;
 import br.com.alura.clientelo.model.Endereco;
@@ -10,10 +14,6 @@ import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.model.Produto;
 import br.com.alura.clientelo.model.TipoDescontoPedidoEnum;
 import br.com.alura.clientelo.model.TipoDescontoProdutoEnum;
-import br.com.alura.clientelo.repository.CategoriaDao;
-import br.com.alura.clientelo.repository.ClienteDao;
-import br.com.alura.clientelo.repository.PedidoDao;
-import br.com.alura.clientelo.repository.ProdutoDao;
 
 public class TestePersistenciaPedido {
 	
