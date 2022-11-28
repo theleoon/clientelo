@@ -32,6 +32,12 @@ public class Categoria {
 		this.ativa = Boolean.TRUE;
 	}
 
+	public Categoria(String nome, Long id, Boolean ativa) {
+		this.nome = nome;
+		this.id = id;
+		this.ativa = ativa;
+	}
+
 	public String getNome() {
 		return nome;
 	}

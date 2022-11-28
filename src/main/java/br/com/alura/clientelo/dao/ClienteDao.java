@@ -88,9 +88,11 @@ public class ClienteDao implements Dao<Cliente>{
 		Root<Cliente> from = query.from(Cliente.class);
 		Predicate filtros = builder.and();
 		
-		if (nome != null && !nome.isEmpty()) filtros = builder.and(filtros, builder.equal(from.get("nome"), nome));
+		if (nome != null && !nome.isEmpty()) 
+			filtros = builder.and(filtros, builder.equal(from.get("nome"), nome));
 			
-		if (cpf != null && !cpf.isEmpty()) filtros = builder.and(filtros, builder.equal(from.get("cpf"), cpf));
+		if (cpf != null && !cpf.isEmpty()) 
+			filtros = builder.and(filtros, builder.equal(from.get("cpf"), cpf));
 		
 		query.where(filtros);
 		
