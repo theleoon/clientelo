@@ -138,5 +138,8 @@ public class Pedido {
 		updateTotalPedido();
 	}
 
+	public List<ItemPedido> getItens() {
+		return itens;
+	}
 
 }

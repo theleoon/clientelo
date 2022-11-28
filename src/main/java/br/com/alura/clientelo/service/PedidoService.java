@@ -11,9 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.alura.clientelo.dto.ClienteDto;
 import br.com.alura.clientelo.dto.PedidoDto;
-import br.com.alura.clientelo.model.Cliente;
 import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.repository.PedidoRepository;
 
@@ -35,7 +33,7 @@ public class PedidoService {
 	}
 
 	public BigDecimal getTotalDeProdutosVendidos(Optional<List<Pedido>> pedidos) {
-		return pedidos.orElse(new ArrayList<Pedido>()).stream().map(pedido -> new BigDecimal(pedido.getQuantidade()))
+		return pedidos.orElse(new ArrayList<Pedido>()).stream().map(pedido -> pedido.getTotalPedido())
 				.reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
@@ -76,9 +74,9 @@ public class PedidoService {
 
 	public List<PedidoDto> get() {
 		List<Pedido> objs = new ArrayList<>();
-		pedidoRepository.findAll().forEach(objs::add);
+		
 
-		return PedidoDto.converter(objs);
+		return PedidoDto.converter(pedidoRepository.getAll());
 	}
 
 	public PedidoDto get(Long id) {

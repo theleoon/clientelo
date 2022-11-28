@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.alura.clientelo.dto.ClienteDto;
 import br.com.alura.clientelo.dto.PedidoDto;
 import br.com.alura.clientelo.form.PedidoForm;
 import br.com.alura.clientelo.model.Pedido;

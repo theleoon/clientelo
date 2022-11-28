@@ -16,6 +16,7 @@ public class CategoriaDto {
 	}
 
 	public CategoriaDto(Categoria categoria) {
+		if (categoria == null) return;
 		this.nome = categoria.getNome();
 		this.id = categoria.getId();
 		this.ativa = categoria.getAtiva();

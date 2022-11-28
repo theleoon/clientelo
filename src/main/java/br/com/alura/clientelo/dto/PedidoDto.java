@@ -16,16 +16,22 @@ public class PedidoDto {
 	private TipoDescontoPedidoEnum tipoDesconto;
 	private BigDecimal totalPedido;
 	private LocalDate data;
-
 	private List<ItemPedidoDto> itens = new ArrayList<>();
 
-	public PedidoDto(Pedido obj) {
-		// TODO Auto-generated constructor stub
+	public PedidoDto(Pedido pedido) {
+		this.id = pedido.getId();
+		this.cliente = new ClienteDto(pedido.getCliente());
+		this.desconto = pedido.getDesconto();
+		this.tipoDesconto = pedido.getTipoDesconto();
+		this.totalPedido = pedido.getTotalPedido();
+		this.data = pedido.getData();
+		this.itens = ItemPedidoDto.converter(pedido.getItens());// ajustar essa chamada
 	}
 
 	public static List<PedidoDto> converter(List<Pedido> objs) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PedidoDto> retorno = new ArrayList<>();
+		objs.forEach(obj -> retorno.add(new PedidoDto(obj)));
+		return retorno;
 	}
 
 	public Long getId() {
