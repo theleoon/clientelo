@@ -1,31 +1,36 @@
 package br.com.alura.clientelo;
 
-import java.util.List;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
-import br.com.alura.clientelo.model.Cliente;
 import br.com.alura.clientelo.repository.CategoriaRepository;
 import br.com.alura.clientelo.repository.ClienteRepository;
-import br.com.alura.clientelo.repository.SpecificationCliente;
-import br.com.alura.clientelo.vo.RelatorioClientePedidosVo;
-import br.com.alura.clientelo.vo.RelatorioClientePorMontanteVo;
+import br.com.alura.clientelo.repository.UsuarioRepository;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //@EnableJpaRepositories({"br.com.alura.clientelo.repository"})
 //@EntityScan("br.com.alura.clientelo.model")
 
 @SpringBootApplication
+@EnableSwagger2
+@EnableSpringDataWebSupport // Spring Data Sort
+@EnableCaching
 public class SpringDataApplication implements CommandLineRunner {
 	
 	private final CategoriaRepository categoriaRepository;
 	
 	private final ClienteRepository clienteRepository;
+	
+	private final UsuarioRepository usuarioRepository;
 
-	public SpringDataApplication(CategoriaRepository categoriaRepository, ClienteRepository clienteRepository) {
+	public SpringDataApplication(CategoriaRepository categoriaRepository, ClienteRepository clienteRepository,
+			UsuarioRepository usuarioRepository) {
 		this.categoriaRepository = categoriaRepository;
 		this.clienteRepository = clienteRepository;
+		this.usuarioRepository = usuarioRepository;
 	}
 	
 	public static void main(String[] args) {
@@ -34,6 +39,8 @@ public class SpringDataApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+//		new TestePersistenciaUsuario(this.usuarioRepository).valida();
 		
 //		new TestePersistenciaCategoriaSpringData(categoriaRepository).valida();
 //		new TestePersistenciaClienteSpringData(clienteRepository).valida();

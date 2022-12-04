@@ -9,6 +9,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import br.com.alura.clientelo.dto.PedidoDto;
@@ -72,11 +74,8 @@ public class PedidoService {
 		pedidoRepository.save(obj);
 	}
 
-	public List<PedidoDto> get() {
-		List<Pedido> objs = new ArrayList<>();
-		
-
-		return PedidoDto.converter(pedidoRepository.getAll());
+	public Page<PedidoDto> get(Pageable paginacao) {
+		return PedidoDto.converter(pedidoRepository.findAll(paginacao));
 	}
 
 	public PedidoDto get(Long id) {

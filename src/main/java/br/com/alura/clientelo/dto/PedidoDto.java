@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import br.com.alura.clientelo.model.Pedido;
 import br.com.alura.clientelo.model.TipoDescontoPedidoEnum;
 
@@ -32,6 +34,10 @@ public class PedidoDto {
 		List<PedidoDto> retorno = new ArrayList<>();
 		objs.forEach(obj -> retorno.add(new PedidoDto(obj)));
 		return retorno;
+	}
+	
+	public static Page<PedidoDto> converter(Page<Pedido> objs) {
+		return objs.map(PedidoDto::new);
 	}
 
 	public Long getId() {
