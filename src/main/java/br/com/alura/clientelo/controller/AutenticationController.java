@@ -3,6 +3,7 @@ package br.com.alura.clientelo.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import br.com.alura.clientelo.config.security.TokenService;
 
 @RestController
 @RequestMapping("/auth")
+@Profile(value = {"production", "test"})
 public class AutenticationController {
 	
 	@Autowired

@@ -11,14 +11,11 @@ import br.com.alura.clientelo.repository.ClienteRepository;
 import br.com.alura.clientelo.repository.UsuarioRepository;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//@EnableJpaRepositories({"br.com.alura.clientelo.repository"})
-//@EntityScan("br.com.alura.clientelo.model")
-
 @SpringBootApplication
 @EnableSwagger2
 @EnableSpringDataWebSupport // Spring Data Sort
 @EnableCaching
-public class SpringDataApplication implements CommandLineRunner {
+public class SpringAppApplication implements CommandLineRunner {
 	
 	private final CategoriaRepository categoriaRepository;
 	
@@ -26,7 +23,7 @@ public class SpringDataApplication implements CommandLineRunner {
 	
 	private final UsuarioRepository usuarioRepository;
 
-	public SpringDataApplication(CategoriaRepository categoriaRepository, ClienteRepository clienteRepository,
+	public SpringAppApplication(CategoriaRepository categoriaRepository, ClienteRepository clienteRepository,
 			UsuarioRepository usuarioRepository) {
 		this.categoriaRepository = categoriaRepository;
 		this.clienteRepository = clienteRepository;
@@ -34,7 +31,7 @@ public class SpringDataApplication implements CommandLineRunner {
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(SpringDataApplication.class, args);
+		SpringApplication.run(SpringAppApplication.class, args);
 	}
 
 	@Override
